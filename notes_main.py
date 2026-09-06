@@ -1,80 +1,53 @@
-# print("Привет! Я компьютер Борис. Моя любимая еда - 'видеокарты'. А по пятницам я боюсь калькуляторов.")
-# print(5 + 5)
-# print(5 - 5)
-# print(5 * 5)
-# print(5 / 5)
+import requests
+from bs4 import BeautifulSoup
 
-# print(input("Как тебя зовут? "))
+url = "https://randomword.com/"
 
-# name = input("Как тебя зовут? ")
-# print(name)
-# print("Привет! Я компьютер Борис. Моя любимая еда - 'видеокарты'. А по пятницам я боюсь калькуляторов.")
-# print(5 + 5)
-# print(5 - 5)
-# print(5 * 5)
-# print(5 / 5)
+response = requests.get(url)
 
-# print(input("Как тебя зовут? "))
+# print(response.content)
 
-# name = input("Как тебя зовут? ")
-# print(name)
+def get_english_words_and_meanings():
+    url = "https://randomword.com/"
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
 
-# name = input("Как тебя зовут? ")
-# food = input("Что ты любишь есть? ")
-#
-# print("Привет,", name)
-# print("Так и знал! Ты любишь", food)
+        soup = BeautifulSoup(response.content, "html.parser")
 
-# score = 10
-# print(score)
-#
-# score = 50
-# print(score)
+        word = soup.find("div", id="random_word").text.strip()
+        meaning = soup.find("div", id="random_word_definition").text.strip()
 
-# age = int(input("Введите возраст: "))
-# print(age + 1)
+        return {"word": word,
+                "meaning": meaning}
+
+    except requests.exceptions.RequestException as e:
+        print("Произошла ошибка при получении данных:", e)
+        return None
+
+    except Exception as e:
+        print("Произошла ошибка:", e)
 
 
-# weight = float(input("Введите ваш вес: "))
-# print(weight)
+def guess_word_game():
+    print("Добро пожаловать в игру 'Угадай слово'!")
+    while True:
+        word_dict = get_english_words_and_meanings()
+        word = word_dict.get("word")
+        meaning = word_dict.get("meaning")
+
+        print(f"\nЗначение слова: {meaning}")
+        user_guess = input("Введите английское слово: ").strip().lower()
+
+        if user_guess == word:
+            print("Правильно! Вы угадали слово.")
+        else:
+            print(f"Неверно. Правильное слово: {word}")
+
+        play_again = input("Хотите сыграть еще раз? (y/n): ").strip().lower()
+        if play_again != "y":
+            print("Спасибо за игру!")
+            break
 
 
-# print(3 // 2)
-
-# print(3 ** 4)
-
-rost = int(input("Введите ваш рост в см: "))
-metr = rost / 100
-mm = rost * 10
-print("Ваш рост в метрах:", metr)
-print("Ваш рост в миллиметрах:", mm)
-
-# name = input("Как тебя зовут? ")
-# food = input("Что ты любишь есть? ")
-#
-# print("Привет,", name)
-# print("Так и знал! Ты любишь", food)
-
-# score = 10
-# print(score)
-#
-# score = 50
-# print(score)
-
-# age = int(input("Введите возраст: "))
-# print(age + 1)
-
-
-# weight = float(input("Введите ваш вес: "))
-# print(weight)
-
-
-# print(3 // 2)
-
-# print(3 ** 4)
-
-rost = int(input("Введите ваш рост в см: "))
-metr = rost / 100
-mm = rost * 10
-print("Ваш рост в метрах:", metr)
-print("Ваш рост в миллиметрах:", mm)
+guess_word_game()
