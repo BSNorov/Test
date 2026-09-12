@@ -1,53 +1,83 @@
-import requests
-from bs4 import BeautifulSoup
-
-url = "https://randomword.com/"
-
-response = requests.get(url)
-
-# print(response.content)
-
-def get_english_words_and_meanings():
-    url = "https://randomword.com/"
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-
-        soup = BeautifulSoup(response.content, "html.parser")
-
-        word = soup.find("div", id="random_word").text.strip()
-        meaning = soup.find("div", id="random_word_definition").text.strip()
-
-        return {"word": word,
-                "meaning": meaning}
-
-    except requests.exceptions.RequestException as e:
-        print("Произошла ошибка при получении данных:", e)
-        return None
-
-    except Exception as e:
-        print("Произошла ошибка:", e)
+"""
+Закомментировать код Ctrl (Command) + / (Английская раскладка)
 
 
-def guess_word_game():
-    print("Добро пожаловать в игру 'Угадай слово'!")
-    while True:
-        word_dict = get_english_words_and_meanings()
-        word = word_dict.get("word")
-        meaning = word_dict.get("meaning")
+Как комментировать с помощью тройных кавычек - три раза одинарных или двойных кавычек нажимает
+"""
 
-        print(f"\nЗначение слова: {meaning}")
-        user_guess = input("Введите английское слово: ").strip().lower()
-
-        if user_guess == word:
-            print("Правильно! Вы угадали слово.")
-        else:
-            print(f"Неверно. Правильное слово: {word}")
-
-        play_again = input("Хотите сыграть еще раз? (y/n): ").strip().lower()
-        if play_again != "y":
-            print("Спасибо за игру!")
-            break
+# name = "Саша"
+# name2 = "Алекс"
+# name3 = "Максим"
+# name4 = "Даша"
 
 
-guess_word_game()
+'''
+Список - это переменная, внутри которой можно хранить сразу несколько значений
+Список создаётся с помощью квадратных скобок
+'''
+# students = [] # пустой список
+# students = ["Саша", "Алекс", "Максим", "Даша"]
+
+
+"""Строки"""
+
+# fruits = ["яблоко", "банан", "апельсин"]
+
+"""Числа"""
+# numbers = [1, 5, 10, 20, 50]
+
+"Разные типы данных одновременно"
+# data = ["Саша", 15, 4.5]
+
+
+"""КАК ВЫВЕСТИ СПИСОК"""
+# fruits = ["яблоко", "банан", "апельсин"]
+# print(fruits)
+# print(fruits[1])
+
+"""ИЗМЕНЕНИЕ ЭЛЕМЕНТА СПИСКА"""
+# fruits = ["яблоко", "банан", "апельсин"]
+# fruits[1] = "груша"
+# print(fruits)
+
+"""ОСНОВНЫЕ МЕТОДЫ СПИСКА"""
+
+'''1) .append() - добавляет один новый элемент в конец списка'''
+
+# fruits = ["яблоко", "банан", "апельсин"]
+# fruits.append('груша')
+# print(fruits)
+
+'''2) .pop() -удаляет элемент из списка (или по номеру)'''
+# fruits = ['яблоко', 'банан', 'апельсин', 'груша']
+# fruits.pop()
+# print(fruits)
+
+
+'''3) .insert() - вставить в определённое местов'''
+# fruits = ['яблоко', 'апельсин']
+# fruits.insert(1, 'банан')
+# print(fruits)
+
+
+'''4) .remove() - удаляет конкретный элемент по названию '''
+# fruits = ['яблоко', 'банан', 'апельсин', 'груша']
+# fruits.remove("апельсин")
+# print(fruits)
+
+
+# '''5) .sort() - отсоритирует по возрастанию или по алфавиту '''
+# fruits = ['яблоко', 'банан', 'апельсин', 'груша']
+# fruits.sort()
+# print(fruits)
+#
+# numbers = [9, 3, 6, 1, 4, 2]
+# numbers.sort()
+# print(numbers)
+
+'''Функция len() выводит длину списика или строки'''
+# name = "Александр"
+# print(len(name)) # --> строка
+
+# fruits = ['яблоко', 'банан', 'апельсин', 'груша']
+# print(len(fruits))
