@@ -1,140 +1,153 @@
-import pygame
-import time
-pygame.init()
-'''создаём окно программы'''
-back = (200, 255, 255) #цвет фона (background)
-mw = pygame.display.set_mode((500, 500)) #окно программы (main window)
-mw.fill(back)
-clock = pygame.time.Clock()
-'''класс прямоугольник'''
-class Area():
-  def __init__(self, x=0, y=0, width=10, height=10, color=None):
-      self.rect = pygame.Rect(x, y, width, height) #прямоугольник
-      self.fill_color = color
-  def color(self, new_color):
-      self.fill_color = new_color
-  def fill(self):
-      pygame.draw.rect(mw, self.fill_color, self.rect)
-  def outline(self, frame_color, thickness): #обводка существующего прямоугольника
-      pygame.draw.rect(mw, frame_color, self.rect, thickness)   
-  def collidepoint(self, x, y):
-      return self.rect.collidepoint(x, y)      
-'''класс надпись'''
-class Label(Area):
-  def set_text(self, text, fsize=12, text_color=(0, 0, 0)):
-      self.image = pygame.font.SysFont('verdana', fsize).render(text, True, text_color)
-  def draw(self, shift_x=0, shift_y=0):
-      self.fill()
-      mw.blit(self.image, (self.rect.x + shift_x, self.rect.y + shift_y))
-RED = (255, 0, 0)
-GREEN = (0, 255, 51)
-YELLOW = (255, 255, 0)
-DARK_BLUE = (0, 0, 100)
-BLUE = (80, 80, 255)
-LIGHT_GREEN = (200, 255, 200)
-LIGHT_RED = (250, 128, 114)
-cards = []
-num_cards = 4
-x = 70
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWidget, QLineEdit, QTextEdit, QInputDialog, QHBoxLayout, QVBoxLayout, QFormLayout
 
 
-start_time = time.time()
-cur_time = start_time
+app = QApplication([])
+notes = []
 
 
-''' Интерфейс игры'''
+'''Интерфейс приложения'''
+#параметры окна приложения
+notes_win = QWidget()
+notes_win.setWindowTitle('Умные заметки')
+notes_win.resize(900, 600)
 
 
-time_text = Label(0,0,50,50,back)
-time_text.set_text('Время:',40, DARK_BLUE)
-time_text.draw(20, 20)
+#виджеты окна приложения
+list_notes = QListWidget()
+list_notes_label = QLabel('Список заметок')
 
 
-timer = Label(50,55,50,40,back)
-timer.set_text('0', 40, DARK_BLUE)
-timer.draw(0,0)
+button_note_create = QPushButton('Создать заметку') #появляется окно с полем "Введите имя заметки"
+button_note_del = QPushButton('Удалить заметку')
+button_note_save = QPushButton('Сохранить заметку')
 
 
-score_text = Label(380,0,50,50,back)
-score_text.set_text('Счёт:',45, DARK_BLUE)
-score_text.draw(20,20)
+field_tag = QLineEdit('')
+field_tag.setPlaceholderText('Введите тег...')
+field_text = QTextEdit()
+button_tag_add = QPushButton('Добавить к заметке')
+button_tag_del = QPushButton('Открепить от заметки')
+button_tag_search = QPushButton('Искать заметки по тегу')
+list_tags = QListWidget()
+list_tags_label = QLabel('Список тегов')
 
 
-score = Label(430,55,50,40,back)
-score.set_text('0', 40, DARK_BLUE)
-score.draw(0,0)
+#расположение виджетов по лэйаутам
+layout_notes = QHBoxLayout()
+col_1 = QVBoxLayout()
+col_1.addWidget(field_text)
 
 
-for i in range(num_cards):
-  new_card = Label(x, 170, 70, 100, YELLOW)
-  new_card.outline(BLUE, 10)
-  new_card.set_text('CLICK', 26)
-  cards.append(new_card)
-  x = x + 100
-wait = 0
-points = 0
-from random import randint
+col_2 = QVBoxLayout()
+col_2.addWidget(list_notes_label)
+col_2.addWidget(list_notes)
+row_1 = QHBoxLayout()
+row_1.addWidget(button_note_create)
+row_1.addWidget(button_note_del)
+row_2 = QHBoxLayout()
+row_2.addWidget(button_note_save)
+col_2.addLayout(row_1)
+col_2.addLayout(row_2)
+
+
+col_2.addWidget(list_tags_label)
+col_2.addWidget(list_tags)
+col_2.addWidget(field_tag)
+row_3 = QHBoxLayout()
+row_3.addWidget(button_tag_add)
+row_3.addWidget(button_tag_del)
+row_4 = QHBoxLayout()
+row_4.addWidget(button_tag_search)
+
+
+col_2.addLayout(row_3)
+col_2.addLayout(row_4)
+
+
+layout_notes.addLayout(col_1, stretch = 2)
+layout_notes.addLayout(col_2, stretch = 1)
+notes_win.setLayout(layout_notes)
+
+
+'''Функционал приложения'''
+def show_note():
+    key = list_notes.selectedItems()[0].text()
+    print(key)
+    for note in notes:
+        if note[0] == key:
+            field_text.setText(note[1])
+            list_tags.clear()
+            list_tags.addItems(note[2])
+
+
+def add_note():
+    note_name, ok = QInputDialog.getText(notes_win, "Добавить заметку", "Название заметки: ")
+    if ok and note_name != "":
+        note = list()
+        note = [note_name, '', []]
+        notes.append(note)
+        list_notes.addItem(note[0])
+        list_tags.addItems(note[2])
+        print(notes)
+        with open(str(len(notes)-1)+".txt", "w") as file:
+            file.write(note[0]+'\n')
+
+
+def save_note():
+    if list_notes.selectedItems():
+        key = list_notes.selectedItems()[0].text()
+        index = 0
+        for note in notes:
+            if note[0] == key:
+                note[1] = field_text.toPlainText()
+                with open(str(index)+".txt", "w") as file:
+                    file.write(note[0]+'\n')
+                    file.write(note[1]+'\n')
+                    for tag in note[2]:
+                        file.write(tag+' ')
+                    file.write('\n')
+            index += 1
+        print(notes)
+    else:
+        print("Заметка для сохранения не выбрана!")
+
+
+#обработка событий
+list_notes.itemClicked.connect(show_note)
+button_note_create.clicked.connect(add_note)
+button_note_save.clicked.connect(save_note)
+
+
+#запуск приложения 
+notes_win.show()
+
+
+name = 0
+note = []
 while True:
-  '''Отрисовка карточек и отображение кликов'''
-  if wait == 0:
-      wait = 20 #столько тиков надпись будет на одном месте
-      click = randint(1, num_cards)
-      for i in range(num_cards):
-          cards[i].color(YELLOW)
-          if (i + 1) == click:
-              cards[i].draw(10, 40)
-          else:
-              cards[i].fill()
-  else:
-      wait -= 1
-  '''Обработка кликов по карточкам'''
-  for event in pygame.event.get():
-      if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-          x, y = event.pos
-          for i in range(num_cards):
-              #ищем, в какую карту попал клик
-              if cards[i].collidepoint(x,y):
-                  if i + 1 == click: #если на карте есть надпись перекрашиваем в зелёный, плюс очко
-                      cards[i].color(GREEN)
-                      points += 1
-                  else: #иначе перекрашиваем в красный, минус очко
-                      cards[i].color(RED)
-                      points -= 1
-                  cards[i].fill()
-                  score.set_text(str(points),40, DARK_BLUE)
-                  score.draw(0,0)
-  '''Выигрыш и проигрыш'''
-  new_time = time.time()
+    filename = str(name)+".txt"
+    try:
+        with open(filename, "r") as file:
+            for line in file:
+                line = line.replace('\n', '')
+                note.append(line)
+        tags = note[2].split(' ')
+        note[2] = tags
+        
+        notes.append(note)
+        note = []
+        name += 1
 
 
-  if new_time - start_time  >= 11:
-       win = Label(0, 0, 500, 500, LIGHT_RED)
-       win.set_text("Время вышло!!!", 60, DARK_BLUE)
-       win.draw(110, 180)
-       break
-  
-  if int(new_time) - int(cur_time) == 1: #проверяем, есть ли разница в 1 секунду между старым и новым временем
-       timer.set_text(str(int(new_time - start_time)),40, DARK_BLUE)
-       timer.draw(0,0)
-       cur_time = new_time
+    except IOError:
+        break
 
 
-  if points >= 5:
-       win = Label(0, 0, 500, 500, LIGHT_GREEN)
-       win.set_text("Ты победил!!!", 60, DARK_BLUE)
-       win.draw(140, 180)
-       resul_time = Label(90, 230, 250, 250, LIGHT_GREEN)
-       resul_time.set_text("Время прохождения: " + str (int(new_time - start_time)) + " сек", 40, DARK_BLUE)
+print(notes)
+for note in notes:
+    list_notes.addItem(note[0])
 
 
-       resul_time.draw(0, 0)
+app.exec_()
 
-
-       break
-
-
-  pygame.display.update()
-  clock.tick(40)
-
-
-pygame.display.update() 
