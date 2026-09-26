@@ -1,75 +1,70 @@
-import pickle
-
-from mcpi.minecraft import Minecraft
-mc = Minecraft.create()
-
-
-# Сортировка координат
-def sort(n1, n2):
-    if n1 > n2:
-        return n2, n1
-    else:
-        return n1, n2
+"""
+for - используется, когда мы перебираем элементы или выполняем действия
+определённое количество раз
 
 
-# Копирование конструкции
-def copy_structure(x1, y1, z1, x2, y2, z2):
-    # Сортируем координаты
-    x1, x2 = sort(x1, x2)
-    y1, y2 = sort(y1, y2)
-    z1, z2 = sort(z1, z2)
+while - выполняет действия, пока определённое условие остаётся истинным
+"""
 
-    # Определяем размеры конструкции
-    width = x2 - x1
-    height = y2 - y1
-    length = z2 - z1
+# for i in range(5):
+#     print("Привет, человек!")
 
-    # Создаем список для конструкции
-    structure = []
+# for i in range(5):
+#     print(i)
 
-    print("Пожалуйста, подождите...")
-
-    # Копируем все блоки конструкции
-    for column in range(height):
-        structure.append([])
-
-        for row in range(width):
-            structure[column].append([])
-
-            for depth in range(length):
-                block = mc.getBlockWithData(
-                    x1 + row,
-                    y1 + column,
-                    z1 + depth
-                )
-
-                structure[column][row].append(block)
-
-    return structure
+# for i in range(3):
+#     print("Python")
 
 
-# Получаем координаты первого угла
-input("Пройдите к первому углу и нажмите Enter в этом окне")
-x1, y1, z1 = mc.player.getTilePos()
+'''
+Вариант 1
+'''
+# for i in range(5):
+#     print(i)
+
+'''
+Вариант 2
+'''
+# for i in range(1, 6):
+#     print(i)
+
+'''
+Вариант 3
+'''
+# for i in range(2, 11, 2):
+#     print(i)
 
 
-# Получаем координаты противоположного угла
-input("Пройдите к противоположному углу и нажмите Enter в этом окне")
-x2, y2, z2 = mc.player.getTilePos()
+# for i in range(10, 0, -1):
+#     print(i)
 
 
-# Копируем конструкцию
-print("Копируем в файл")
+# print("Подготовка к запуска!")
+#
+# for i in range(10, 0, -1):
+#     print(i)
+#
+# print('🚀 РАКЕТА ЗАПУЩЕНА!')
 
-structure = copy_structure(
-    x1, y1, z1,
-    x2, y2, z2
-)
+# heroes = ['Бэтмен', 'Железный человек', 'Тор', 'Халк']
+#
+# for hero in heroes:
+#     print("Добро пожаловать,", hero)
 
 
-# Сохраняем конструкцию в файл
-file = open("structure.txt", "wb")
-pickle.dump(structure, file)
-file.close()
+# fruits = ['Яблоко', 'Банан', 'Апельсин']
+#
+# for fruit in fruits:
+#     print(fruit)
 
-print("Конструкция сохранена!")
+
+# age = "Саша"
+# print(age)
+
+coins = 0
+
+for i in range(5):
+    coins = coins + 10
+    print("Монеты:", coins)
+
+print("Всего заработано:", coins)
