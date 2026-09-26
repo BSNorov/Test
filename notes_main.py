@@ -1,70 +1,49 @@
-"""
-for - используется, когда мы перебираем элементы или выполняем действия
-определённое количество раз
+# number = 1
+#
+# while number <= 5:
+#     print(number)
+#     number += 1
 
 
-while - выполняет действия, пока определённое условие остаётся истинным
-"""
-
-# for i in range(5):
-#     print("Привет, человек!")
-
-# for i in range(5):
-#     print(i)
-
-# for i in range(3):
-#     print("Python")
-
-
-'''
-Вариант 1
-'''
-# for i in range(5):
-#     print(i)
-
-'''
-Вариант 2
-'''
 # for i in range(1, 6):
 #     print(i)
-
-'''
-Вариант 3
-'''
-# for i in range(2, 11, 2):
-#     print(i)
-
-
-# for i in range(10, 0, -1):
-#     print(i)
-
-
-# print("Подготовка к запуска!")
 #
-# for i in range(10, 0, -1):
-#     print(i)
+# number = 1
 #
-# print('🚀 РАКЕТА ЗАПУЩЕНА!')
+# while number <= 5:
+#     print(number)
+#     number += 1
 
-# heroes = ['Бэтмен', 'Железный человек', 'Тор', 'Халк']
+
+# password = ""
 #
-# for hero in heroes:
-#     print("Добро пожаловать,", hero)
-
-
-# fruits = ['Яблоко', 'Банан', 'Апельсин']
+# while password != "python123":
+#     password = input("Введите пароль: ")
 #
-# for fruit in fruits:
-#     print(fruit)
+# print("Доступ разрешён!")
 
 
-# age = "Саша"
-# print(age)
+# battery = 10
+#
+# while battery < 100:
+#     battery += 10
+#     print("Заряд:", battery, "%")
+#
+# print('Телефон полностью заряжен!')
 
-coins = 0
 
-for i in range(5):
-    coins = coins + 10
-    print("Монеты:", coins)
+money = 200
 
-print("Всего заработано:", coins)
+while money >= 50:
+    print("У тебя осталось:", money)
+
+    answer = input("Купить шоколадку за 50 рублей? да/нет: ")
+
+    if answer == "да":
+        money -= 50
+        print("Шоколад куплена!")
+    else:
+        print("Покупки завершены!")
+        break
+
+print("Осталось денег:", money)
