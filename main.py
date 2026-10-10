@@ -1,45 +1,29 @@
-# def show_score():
-#     score = 100         # локальная переменная
-#     print(score)
-#
-# show_score()
-# print(score)  # ошибка
+import turtle                           # всегда в начале строк: подключаем (импортируем) модуль turtle
 
-# name = "Саша"             # глобальная переменная
-#
-# def hello():
-#     print("Привет,", name)
-#
-# hello()
+t = turtle.Pen()
 
+# t.color("red")      # меняет цвет пера
 
-
-# def hello_sasha():
-#     print("Привет, Саша!")
-#
-# def hello_anna():
-#     print("Привет, Анна!")
-#
-# def hello_max():
-#     print("Привет, Макс!")
-#
-# hello_sasha()
-# hello_anna()
-# hello_max()
+'''Квадрат'''
+# t.forward(100)
+# t.left(90)
+# t.forward(100)
+# t.left(90)
+# t.forward(100)
+# t.left(90)
+# t.forward(100)
+# t.left(90)
 
 
-"""Параметр - это переменная, через которую функция получает данные при вызове"""
+'''Треугольник'''
+# t.forward(100)
+# t.left(120)
+# t.forward(100)
+# t.left(120)
+# t.forward(100)
+# t.left(120)
 
-# def hello(name):
-#     print("Привет,", name)
-#
-# hello("Саша")
-# hello("Анна")
-# hello("Макс")
+'''Круг'''
+# t.circle(100)
 
-def add(a, b):
-    print(a + b)
-
-add(5, 3)
-add(10, 30)
-add(100, 50)
+turtle.mainloop()                       # всегда в конце кода
