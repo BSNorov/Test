@@ -1,50 +1,45 @@
-def hello():
-    print("Привет!")
-    print("Добро пожаловать на урок Python!")
-    print("Желаю тебе удачи!")
+# def show_score():
+#     score = 100         # локальная переменная
+#     print(score)
+#
+# show_score()
+# print(score)  # ошибка
+
+# name = "Саша"             # глобальная переменная
+#
+# def hello():
+#     print("Привет,", name)
+#
+# hello()
 
 
-hello()
 
-def say_hello():
-    print("Привет, игрок!")
+# def hello_sasha():
+#     print("Привет, Саша!")
+#
+# def hello_anna():
+#     print("Привет, Анна!")
+#
+# def hello_max():
+#     print("Привет, Макс!")
+#
+# hello_sasha()
+# hello_anna()
+# hello_max()
 
-def show_rules():
-    print("Правило 1: не сдавайся!")
-    print("Правило 2: думай внимательно!")
 
-def say_goodbye():
-    print("Спасибо за игру!")
+"""Параметр - это переменная, через которую функция получает данные при вызове"""
 
-say_hello()
-show_rules()
-say_goodbye()
+# def hello(name):
+#     print("Привет,", name)
+#
+# hello("Саша")
+# hello("Анна")
+# hello("Макс")
 
-def morning():
-    print("Доброе утро!")
+def add(a, b):
+    print(a + b)
 
-def evening():
-    print("Добрый вечер!")
-
-evening()
-morning()
-
-def say_hello():
-    print("Привет!")
-
-def show_rules():
-    print("Собери 10 монет!")
-
-def start_game():
-    say_hello()
-    show_rules()
-    print("Начинаем игру!")
-
-start_game()
-
-def hello():
-    print("Привет!")
-    print("Как дела?")
-
-print("Программа запущена")
-hello()
+add(5, 3)
+add(10, 30)
+add(100, 50)
