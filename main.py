@@ -1,50 +1,50 @@
-import sys
-from PyQt6.QtCore import QSize
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton
+def hello():
+    print("Привет!")
+    print("Добро пожаловать на урок Python!")
+    print("Желаю тебе удачи!")
 
 
-# 🪟 КЛАСС ГЛАВНОГО ОКНА ПРИЛОЖЕНИЯ
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()  # Инициализация родительского класса
+hello()
 
-        # 🖼️ Настройки окна
-        self.setWindowTitle("Моё приложение")    # Заголовок окна
-        self.setFixedSize(QSize(400, 300))       # Фиксированный размер
+def say_hello():
+    print("Привет, игрок!")
 
-        # 🔘 СОЗДАЁМ КНОПКУ
-        self.button = QPushButton("Привет, мир!") # Кнопка с начальной надписью
-        self.button.setCheckable(True)       # Делает кнопку "переключаемой"
+def show_rules():
+    print("Правило 1: не сдавайся!")
+    print("Правило 2: думай внимательно!")
 
-        # 📌 Устанавливаем начальное состояние кнопки (нажата)
-        self.button_is_checked = True
-        self.button.setChecked(self.button_is_checked)
+def say_goodbye():
+    print("Спасибо за игру!")
 
-        # 📡 ПОДКЛЮЧАЕМ СИГНАЛЫ К СЛОТАМ
-        self.button.clicked.connect(self.the_button_was_clicked)   # При клике вызывается метод 1
-        self.button.clicked.connect(self.the_button_was_toggled)   # Тот же сигнал передаёт состояние (True/False)
+say_hello()
+show_rules()
+say_goodbye()
 
-        # 🧩 Размещаем кнопку по центру окна
-        self.setCentralWidget(self.button)
+def morning():
+    print("Доброе утро!")
 
+def evening():
+    print("Добрый вечер!")
 
-    # 🎯 СЛОТ 1: Обработка клика по кнопке
-    def the_button_was_clicked(self):
-        print("Кнопка нажата!")                      # Печать в консоль
-        self.button.setText("До свидания!")          # Меняем текст на кнопке
-        self.button.setEnabled(False)                # Отключаем кнопку (делаем неактивной)
+evening()
+morning()
 
-    # 🎯 СЛОТ 2: Обработка изменения состояния кнопки (включена/выключена)
-    def the_button_was_toggled(self, checked):
-        if checked:
-            print("Состояние: Нажата")               # Если кнопка нажата
-        else:
-            print("Состояние: Отжата")               # Если кнопка отжата
+def say_hello():
+    print("Привет!")
 
+def show_rules():
+    print("Собери 10 монет!")
 
+def start_game():
+    say_hello()
+    show_rules()
+    print("Начинаем игру!")
 
-# 🚀 ЗАПУСК ПРИЛОЖЕНИЯ
-app = QApplication(sys.argv)     # Создаём объект приложения
-window = MainWindow()            # Создаём главное окно
-window.show()                    # Показываем окно
-app.exec()                       # Запускаем цикл обработки событий
+start_game()
+
+def hello():
+    print("Привет!")
+    print("Как дела?")
+
+print("Программа запущена")
+hello()
