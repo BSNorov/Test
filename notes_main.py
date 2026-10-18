@@ -1,51 +1,20 @@
-import turtle                           # всегда в начале строк: подключаем (импортируем) модуль turtle
+'''Типы данных'''
 
-t = turtle.Pen()
+# age = 12            # целое число
+# price = 99.5        # дробное число
+# name = "Алекс"      # строка
+#
+# print(type(age))        # int = integer
+# print(type(price))      # float = floating
+# print(type(name))       # str = string
 
-# t.color("red")      # меняет цвет пера
+'''!!!! input() ВСЕГДА возвращает строку'''
 
-'''Квадрат'''
-# t.forward(100)
-# t.left(90)
-# t.forward(100)
-# t.left(90)
-# t.forward(100)
-# t.left(90)
-# t.forward(100)
-# t.left(90)
+# age = input("Сколько тебе лет? ") # Даже если вы ведете 12, Python получит строку "12"
+# print(type(age))
 
+# age = int(input("Сколько тебе лет? "))
+# print(age + 5)
 
-'''Треугольник'''
-# t.forward(100)
-# t.left(120)
-# t.forward(100)
-# t.left(120)
-# t.forward(100)
-# t.left(120)
-
-'''Круг'''
-# t.circle(100)
-
-
-
-'''Закрашенный квадрат
-begin_fill()
-между ними тут будет рисунок
-end_fill()
-
-'''
-# t.color("blue")
-# t.begin_fill()
-# for i in range(4):
-#     t.forward(100)
-#     t.left(90)
-
-# t.end_fill()
-
-t.penup()                   # Команда не рисует
-t.goto(70, 50)        # Двигается по точка, сначала x, а потом y
-t.pendown()                 # Команда рисует
-t.forward(100)
-
-
-turtle.mainloop()                       # всегда в конце кода
+price = float(input("Цена товара: "))
+print(price)
