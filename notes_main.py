@@ -1,39 +1,45 @@
-"""Кортеж"""
+"""Логический тип данных - bool
 
-# base = ([45, 90])
-# print(base)
-# print(base[0])
-# print(base[1])
-# print(type(base))
+True - Истина
+False - Ложь
+"""
 
-# base[0] = 100
-# print(base)       # Ошибка
-
-# hero = ("Ниндзя", 15, 'Катана')
-# print(hero[0])
-# print(hero[1])
-
-# b = (5,)
-# print(type(b))
+# is_hungry = True
+# is_rich = False
+#
+# print(is_hungry)
+# print(type(is_rich))
 
 
+"""Операторы сравнения
 
-"""Словарь"""
+1. == - равно
+2. != - не равно
+3. > - Больше
+4. < - Меньше
+5. >= - Больше или равно
+6. <= - Меньше или равно
+"""
 
-player = {
-    'name': 'Стив',
-    'health': 20,
-    'level': 5,
-    'weapon': 'Меч'
-}
+# age = 5
+# age == 5
 
-# print(player['name'])
-# print(player['health'])
-# player['health'] = 10       # Изменение внесли
-# print(player['health'])
 
-# player['pet'] = 'Волк'      # Добавили ключ
-# print(player)
+"Логические операторы and, or, not"
 
-# print(player['strength'])
-print(player.get('strength'))
+# age = 14
+# has_pass = True
+#
+# print(age >= 12 and has_pass)
+
+# ticket = False
+# vip = True
+#
+# print(ticket or vip)
+
+# is_sleeping = False
+# print(not is_sleeping)
+
+
+
+"""Условные операторы"""
