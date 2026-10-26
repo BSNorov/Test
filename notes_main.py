@@ -1,90 +1,38 @@
-"""Логический тип данных - bool
+import turtle
 
-True - Истина
-False - Ложь
-"""
+t = turtle.Pen()
 
-# is_hungry = True
-# is_rich = False
-#
-# print(is_hungry)
-# print(type(is_rich))
+# Квадрат
+# t.forward(100)
+# t.left(90)
+# t.forward(100)
+# t.left(90)
+# t.forward(100)
+# t.left(90)
+# t.forward(100)
+# t.left(90)
 
+# Треугольник
+# t.forward(100)
+# t.left(120)
+# t.forward(100)
+# t.left(120)
+# t.forward(100)
+# t.left(120)
 
-"""Операторы сравнения
+# Звезда
+# t.forward(100)
+# t.left(144)
+# t.forward(100)
+# t.left(144)
+# t.forward(100)
+# t.left(144)
+# t.forward(100)
+# t.left(144)
+# t.forward(100)
+# t.left(144)
 
-1. == - равно
-2. != - не равно
-3. > - Больше
-4. < - Меньше
-5. >= - Больше или равно
-6. <= - Меньше или равно
-"""
+# Круг
+t.circle(150)
 
-# age = 5
-# age == 5
-
-
-"Логические операторы and, or, not"
-
-# age = 14
-# has_pass = True
-#
-# print(age >= 12 and has_pass)
-
-# ticket = False
-# vip = True
-#
-# print(ticket or vip)
-
-# is_sleeping = False
-# print(not is_sleeping)
-
-
-
-"""Условный оператор - это специальная конструкция, которая позволяет программе
-выполнять разные дейтсвия в зависимости от того, выполняется условие или нет"""
-
-'''if - если'''
-# PEP 8
-# age = 17
-# if age >= 18:
-#     print("Тебе можно ехать заграницу без родителей!")
-
-
-'''else - иначе, в другом случае'''
-
-# age = 17
-# if age >= 18:
-#     print("Добро пожаловать в кинотеатр!")
-# else:
-#     print("Этот фильм пока не для тебя!")
-
-'''
-80-100 баллов - отлично
-60-79 балллов - хорошо
-40-59 баллов - удовлетворительн
-Меньше 40 - нужно повторить материал
-'''
-
-'''elif - это сокращение от else + if - иначе, если'''
-
-# score = int(input("Введите количество баллов: "))
-#
-# if score >= 80:
-#     print("Отлично!")
-# elif score >= 60:
-#     print("Хорошо!")
-# elif score >= 40:
-#     print("Удовлетворительно!")
-# else:
-#     print("Нужно повторить материал!")
-
-
-age = 15
-height = 160
-
-if age >= 12 and height >= 150:
-    print("Ты можешь кататься!")
-else:
-    print("Доступ запрещён!")
+turtle.mainloop()
