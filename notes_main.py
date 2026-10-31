@@ -1,38 +1,27 @@
-import turtle
+import pygame
 
-t = turtle.Pen()
+pygame.init()
 
-# Квадрат
-# t.forward(100)
-# t.left(90)
-# t.forward(100)
-# t.left(90)
-# t.forward(100)
-# t.left(90)
-# t.forward(100)
-# t.left(90)
+W, H = 800, 600  # W - width (ширина), H - height (высота)
+display = pygame.display.set_mode((W, H))
 
-# Треугольник
-# t.forward(100)
-# t.left(120)
-# t.forward(100)
-# t.left(120)
-# t.forward(100)
-# t.left(120)
+image = pygame.Surface([80, 80])
+image.fill('red')
+rect = image.get_rect()
 
-# Звезда
-# t.forward(100)
-# t.left(144)
-# t.forward(100)
-# t.left(144)
-# t.forward(100)
-# t.left(144)
-# t.forward(100)
-# t.left(144)
-# t.forward(100)
-# t.left(144)
 
-# Круг
-t.circle(150)
+def main():
+    while True:
+        # 1) Считывание ввода
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+        # ------------------
+        # 2) Обновление состояния игры
+        # ------------------
+        # 3) Отрисовка обновленного состояния
+        display.blit(image, rect)
+        pygame.display.update()
+        pygame.time.delay(1000 // 60)
 
-turtle.mainloop()
+main()
