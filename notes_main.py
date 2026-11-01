@@ -1,46 +1,100 @@
-import pygame
+# age = 18            # int
+# name = "Alex"       # str
+# price = 19.5        # float
 
-pygame.init()
+'''bool - Логический тип данных (Булевый)
+True - истина (да)
+False - ложь (нет)
+'''
 
-W, H = 800, 600  # W - width (ширина), H - height (высота)
-display = pygame.display.set_mode((W, H))
+# player_alive = True
+# has_weapon = False
+#
+# print(player_alive)
+# print(has_weapon)
+# print(type(player_alive))
 
-image = pygame.Surface([80, 80])
-image.fill('red')
-rect = image.get_rect()
 
-image2 = pygame.Surface([160, 160])
-image2.fill('green')
-rect2 = image2.get_rect()
+# age = 16
+# print(age >= 18)
+# print(10 > 5)
 
-def is_key_pressed(key):
-    return pygame.key.get_pressed()[key]
+"""
+Операторы сравнения:
+1) == - Равно
+2) != - НЕ равно
+3) > - Больше
+4) < - Меньше
+5) >= - Больше или Равно
+6) <= - Меньше или Равно
+"""
 
-def where_mouse_pressed(mouse_key):
-    buttons = pygame.mouse.get_pressed(num_buttons=5)
-    if buttons[mouse_key]:
-        return pygame.mouse.get_pos()
+# money = 650
+# phone_price = 800
+#
+# print(money >= phone_price)
 
-def main():
-    while True:
-        # 1) Считывание ввода
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return
 
-        if is_key_pressed(pygame.K_d):
-            rect2.x += 5
+# password = "hello123"
+# print(password == "python123")
 
-        if is_key_pressed(pygame.K_s):
-            rect2.y += 5
-        # ------------------
-        # 2) Обновление состояния игры
-        # ------------------
-        # 3) Отрисовка обновленного состояния
-        display.fill('black')
-        display.blit(image2, rect2)
-        display.blit(image, rect)
-        pygame.display.update()
-        pygame.time.delay(1000 // 60)
+"""Условный оператор
+if - если
 
-main()
+Конструкция:
+if условие:
+    действие
+"""
+
+# age = 16
+#
+# if age >= 18:
+#     print("Добро пожаловать в игру!")
+
+# secret_code = 777
+#
+# code = int(input("Введите секретный код: "))
+#
+#
+# if code == secret_code:
+#     print("🔓Секретная дверь открыта!")
+
+"""else - иначе
+
+Конструкция:
+
+if условие:
+    действие_1
+else:
+    действие_2
+"""
+
+# password = input("Введите пароль: ")
+# if password == "python123":
+#     print("✅Доступ разрешён!")
+# else:
+#     print("❌Неверный пароль!")
+
+
+# print(10 % 2)
+# print(7 % 2)
+
+# number = int(input("Введите число: "))
+# if number % 2 == 0:
+#     print("Число чётное")
+# else:
+#     print("Число нечётное")
+
+"""elif (else + if) - иначе, если"""
+
+
+score = int(input("Введите количество баллов: "))
+
+if score >= 90:
+    print("🏆 Легенда!")
+elif score >= 70:
+    print("🥇Профессионал!")
+elif score >= 50:
+    print("🥈Новичок")
+else:
+    print("💪Нужно больше тренироваться!")
