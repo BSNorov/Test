@@ -5,13 +5,31 @@ pygame.init()
 W, H = 800, 600  # W - width (ширина), H - height (высота)
 display = pygame.display.set_mode((W, H))
 
-image = pygame.Surface([80, 80])
-image.fill('red')
-rect = image.get_rect()
+class Crosshair():
+    def __init__(self):
+        self.sprite = pygame.Surface([80, 80])
+        self.sprite.fill('red')
+        self.hitbox = self.sprite.get_rect()
 
-image2 = pygame.Surface([160, 160])
-image2.fill('green')
-rect2 = image2.get_rect()
+    def draw(self):
+        display.blit(self.sprite, self.hitbox)
+
+    def move(self):
+        self.hitbox.center =  pygame.mouse.get_pos()
+
+class Target():
+    def __init__(self):
+        ...
+
+    def ???():
+        ...
+
+    def ???():
+        ...
+
+crosshair = Crosshair()
+
+
 
 def is_key_pressed(key):
     return pygame.key.get_pressed()[key]
@@ -28,28 +46,14 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        if is_key_pressed(pygame.K_w):
-            rect2.y -= 5
-        if is_key_pressed(pygame.K_a):
-            rect2.x -= 5
-        if is_key_pressed(pygame.K_s):
-            rect2.y += 5
-        if is_key_pressed(pygame.K_d):
-            rect2.x += 5
-
-        rect.center =  pygame.mouse.get_pos()
-        # mouse_pos = where_mouse_pressed(0)
-        # if mouse_pos:
-        #     rect.center = mouse_pos
-
 
         # ------------------
         # 2) Обновление состояния игры
+        crosshair.move()
         # ------------------
         # 3) Отрисовка обновленного состояния
         display.fill('black')
-        display.blit(image2, rect2)
-        display.blit(image, rect)
+        crosshair.draw()
         pygame.display.update()
         pygame.time.delay(1000 // 60)
 
