@@ -1,4 +1,5 @@
 import pygame as pg
+import random
 
 pg.init()
 SCREEN_WIDTH, SCREEN_HEIGHT = 480, 640
@@ -16,8 +17,10 @@ screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 class Bird(pg.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pg.Surface([BIRD_WIDTH, BIRD_HEIGHT])
-        self.image.fill(YELLOW)
+        self.image = pg.image.load('bird.png')
+        self.image = pg.transform.scale(
+            self.image, size=[BIRD_WIDTH, BIRD_HEIGHT]
+        )
         self.rect = self.image.get_rect(
             center=(SCREEN_WIDTH // 4, SCREEN_HEIGHT // 2)
         )
@@ -39,8 +42,42 @@ class Bird(pg.sprite.Sprite):
     def jump(self):
         self.velocity = self.lift
 
+class Pipe(pg.sprite.Sprite):
+    TOP = 1
+    BOTTOM = 2
+
+    def __init__(self, type, gap_start):
+        super().__init__()
+        self.image = pg.image.load('pipe.png')
+        self.image = pg.transform.scale(
+            self.image, [PIPE_WIDTH, self.image.get_height() / 2]
+        )
+        if type == self.TOP:
+            self.image = pg.transform.flip(self.image, False, True)
+            self.rect = self.image.get_rect(
+                bottomleft=(SCREEN_WIDTH, gap_start)
+            )
+        elif type == self.BOTTOM:
+            self.rect = self.image.get_rect(
+                topleft=(SCREEN_WIDTH, gap_start + PIPE_GAP)
+            )
+
+    def update(self):
+        self.rect.x -= SPEED
+        if self.rect.right < 0:
+            self.kill()
+
 
 bird = Bird()
+pipes = pg.sprite.Group()
+
+def make_pipes():
+    gap_start = random.randint(50, SCREEN_HEIGHT - PIPE_GAP - 50)
+    top_pipe = Pipe(Pipe.TOP, gap_start)
+    bottom_pipe = Pipe(Pipe.BOTTOM, gap_start)
+    pipes.add(top_pipe, bottom_pipe)
+
+make_pipes()
 
 def main():
     while True:
@@ -56,8 +93,12 @@ def main():
 
         # 2
         bird.update()
+        pipes.update()
+        if pipes.sprites()[-1].rect.x <= SCREEN_WIDTH / 2:
+            make_pipes()
         # 3
         screen.fill(WHITE)
+        pipes.draw(screen)
         screen.blit(bird.image, bird.rect)
         pg.display.update()
         pg.time.delay(30)
