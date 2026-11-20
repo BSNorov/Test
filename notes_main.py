@@ -1,102 +1,53 @@
-# print('Игрок подпрыгнул!')
-# print("Игрок приземлился!")
-#
-# print('Игрок подпрыгнул!')
-# print("Игрок приземлился!")
-#
-# print('Игрок подпрыгнул!')
-# print("Игрок приземлился!")
-
-# def jump():
-#     print('Игрок подпрыгнул!')
-#     print("Ирок приземлился!")
-#
-# jump()
-# jump()
-# jump()
+# Целые числа
+# gold = 6
+# hp = 100
+# price = 60
 
 
+# Вещественные числа (дробные или числа с плавающей точкой)
+# half_apple = 0.5
+# distance = 100.55
 
-# def hello():
-#     print("Я внутри функции!")
-#
-# print("Начало программы")
-# hello()
-# print("Конец программы")
+# print(gold)
+# print(hp)
+# print(half_apple)
+# print(distance)
 
+'''Закомментировать (отключить) код можно с помощью комбинации Ctrl / 
+У кого MacOS - Cmnd /'''
 
-'''Имена функции'''
+from mcpi.minecraft import Minecraft
+from mcpi import block
 
-# Правильно
-# def show_score():
-#     print(100)
-#
-# def player_attack():
-#     print("Атака!")
-#
-# def hello2():
-#     print("Привет")
+mc = Minecraft.create()
 
+# Получаем позицию игрока
+pos = mc.player.getTilePos()
 
-# Неправильно
+x = pos.x
+y = pos.y
+z = pos.z
 
-# def 2hello():
-#     pass
-#
-# def my function():
-#     pass
+# Целое число
+height = 6
 
-'''Параметры'''
+# Вещественное число
+distance = 8.5
 
-# def hello_alex():
-#     print("Привет, Алекс!")
-#
-# def hello_masha():
-#     print("Привет, Маша!")
-#
-# def hello_dima():
-#     print("Привет, Дима!")
-#
-# hello_alex()
-# hello_masha()
-# hello_dima()
+# Строим первую башню
+mc.setBlocks(
+    x + 2, y, z,
+    x + 2, y + height, z,
+    block.GOLD_BLOCK.id
+)
 
-# def hello(name):
-#     print("Привет,", name)
-#
-# hello("Алекс")
-# hello("Маша")
-# hello("Дима")
-#
+# Строим вторую башню
+mc.setBlocks(
+    x + 7, y, z,
+    x + 7, y + 3, z,
+    block.DIAMOND_BLOCK.id
+)
 
-
-# def create_hero(name, level, hp):
-#     print("Герой:", name)
-#     print("Уровень:", level)
-#     print("Здоровье:", hp)
-#
-# create_hero("Ниндзя", 5, 100)
-
-
-# def create_hero(name, level, hp):
-#     print("Герой:", name)
-#     print("Уровень:", level)
-#     print("Здоровье:", hp)
-#
-# name = input("Введите имя вашего героя: ")
-# level = int(input("Уровень вашего героя: "))
-# hp = int(input("Здоровье вашего героя: "))
-# create_hero(name, level, hp)
-
-
-# def add(a, b):
-#     print(a + b)
-# 
-# result = add(5, 3)
-# print("Результат:", result)
-
-def add(a, b):
-    return a + b
-
-result = add(5, 3)
-print("Результат:", result)
+# Показываем значения
+mc.postToChat("Высота = " + str(height))
+mc.postToChat("Расстояние = " + str(height))
