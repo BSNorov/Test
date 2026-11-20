@@ -1,53 +1,40 @@
-# Целые числа
-# gold = 6
-# hp = 100
-# price = 60
+# from mcpi.minecraft import Minecraft
+#
+# mc = Minecraft.create()
+#
+# pos = mc.player.getPos()
+#
+# x = pos.x
+# y = pos.y
+# z = pos.z
+#
+# print("X =", x)
+# print("Y =", y)
+# print("Z =", z)
+#
+# print("Тип координаты X:", type(x))
+#
+# mc.postToChat("GPS активирован!")
 
-
-# Вещественные числа (дробные или числа с плавающей точкой)
-# half_apple = 0.5
-# distance = 100.55
-
-# print(gold)
-# print(hp)
-# print(half_apple)
-# print(distance)
-
-'''Закомментировать (отключить) код можно с помощью комбинации Ctrl / 
-У кого MacOS - Cmnd /'''
+import time
 
 from mcpi.minecraft import Minecraft
-from mcpi import block
 
 mc = Minecraft.create()
 
-# Получаем позицию игрока
 pos = mc.player.getTilePos()
 
 x = pos.x
 y = pos.y
 z = pos.z
 
-# Целое число
-height = 6
+time.sleep(3)
 
-# Вещественное число
-distance = 8.5
+mc.postToChat("Телепорт 1!")
 
-# Строим первую башню
-mc.setBlocks(
-    x + 2, y, z,
-    x + 2, y + height, z,
-    block.GOLD_BLOCK.id
-)
+mc.player.setTilePos(x + 5, y + 1, z)
 
-# Строим вторую башню
-mc.setBlocks(
-    x + 7, y, z,
-    x + 7, y + 3, z,
-    block.DIAMOND_BLOCK.id
-)
+time.sleep(3)
 
-# Показываем значения
-mc.postToChat("Высота = " + str(height))
-mc.postToChat("Расстояние = " + str(height))
+mc.postToChat("Телепорт 2!")
+mc.player.setTilePos(x + 5.5, y + 1, z + 5.5)
