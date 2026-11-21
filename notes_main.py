@@ -11,12 +11,20 @@ SPEED = 5
 WHITE = (255, 255, 255)
 GREEN = (0, 128, 0)
 YELLOW = (255, 255, 0)
+score = 0
 
 screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+font = pg.font.Font(None, 36)
+pg.display.set_caption("Flappy Bird")
+
 background = pg.image.load('background.png').convert()
 background = pg.transform.scale(
     background, (SCREEN_WIDTH, SCREEN_HEIGHT)
 )
+
+def draw_score():
+    score_text = font.render(f"Score: {int(score)}", True, (0, 0, 0))
+    screen.blit(score_text, (10, 10))
 
 class Bird(pg.sprite.Sprite):
     def __init__(self):
@@ -70,6 +78,7 @@ class Pipe(pg.sprite.Sprite):
             self.rect = self.image.get_rect(
                 topleft=(SCREEN_WIDTH, gap_start + PIPE_GAP)
             )
+        self.passed = False
 
     def update(self):
         self.rect.x -= SPEED
@@ -89,6 +98,8 @@ def make_pipes():
 make_pipes()
 
 def main():
+    global score
+    score = 0
     while True:
         # 1
         events = pg.event.get()
@@ -105,14 +116,20 @@ def main():
         pipes.update()
         if pipes.sprites()[-1].rect.x <= SCREEN_WIDTH / 2:
             make_pipes()
+        for p in pipes:
+            if p.rect.right < bird.rect.left and not p.passed:
+                p.passed = True
+                score += 0.5
 
         collisions = pg.sprite.spritecollide(bird, pipes, False)
         if collisions:
             # show_end_screen()
             return
+
         # 3
         screen.blit(background, (0, 0))
         pipes.draw(screen)
+        draw_score()
         screen.blit(bird.image, bird.rect)
         pg.display.update()
         pg.time.delay(30)
