@@ -1,43 +1,117 @@
-from mcpi.minecraft import Minecraft
+import pygame as pg
+import random
 
-mc = Minecraft.create()
+pg.init()
+W, H = 480, 640
+display = pg.display.set_mode((W, H))
 
-password = input("Введите секретный пароль: ")
+GRAVITY = 1
+JUMP = -30
+PLATFORM_WIDTH = 105
+MIN_GAP = 90
+MAX_GAP = 180
 
-if password == "777":
-    x, y, z = mc.player.getTilePos()
-    x = x + 10
+class Player(pg.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image_left = pg.image.load('img/doodle_left.png')
+        self.image = self.image_left
+        self.image_right = pg.transform.flip(self.image, True, False)
+        self.rect = self.image.get_rect(center=(W // 2, H // 2))
+        self.speed = 0
 
-    # Алмазное основание
-    mc.setBlocks(x, y - 1, z,
-                 x + 14, y - 1, z + 14, 57)
+    def update(self):
+        keys = pg.key.get_pressed()
+        if keys[pg.K_LEFT]:
+            self.rect.x -= 5
+            self.image = self.image_left
+        if keys[pg.K_RIGHT]:
+            self.rect.x += 5
+            self.image = self.image_right
 
-    # Золотые стены
-    mc.setBlocks(x, y, z,
-                 x + 14, y + 7, z + 14, 41)
+        if self.rect.left > W:
+            self.rect.left = 0
+        if self.rect.right < 0:
+            self.rect.right = W
 
-    # Освобождаем пространство внутри
-    mc.setBlocks(x + 1, y, z + 1,
-                 x + 13, y + 6, z + 13, 0)
+        self.speed += GRAVITY
+        self.rect.y += self.speed
 
-    # Стеклянная крыша
-    mc.setBlocks(x + 1, y + 7, z + 1,
-                 x + 13, y + 7, z + 13, 20)
+    def draw(self):
+        if self.rect.y > H:
+            self.rect.y = H // 2
+            # draw_text('Game Over', W // 2 - 30, H // 2 - 10)
+        else:
+            display.blit(self.image, self.rect)
 
-    # Большой вход
-    mc.setBlocks(x+5, y, z,
-                 x+9, y+4, z, 0)
+class BasePlatform(pg.sprite.Sprite):
+    def __init__(self, x, y, sprite):
+        super().__init__()
+        self.image = pg.image.load(sprite)
+        self.rect = self.image.get_rect(topleft=(x, y))
 
-    # Изумрудный пьедестал
-    mc.setBlocks(x+5, y, z+5,
-                 x+9, y+1, z+9, 133)
+    def on_collision(self, player):
+        player.speed = JUMP
 
-    # Алмазное сокровище
-    mc.setBlocks(x+6, y+2, z+6,
-                 x+8, y+3, z+8, 57)
+    def update(self):
+        if self.rect.top > H:
+            self.kill()
 
-    # Освещение
-    mc.setBlocks(x+1, y+6, z+1,
-                 x+13, y+6, z+1, 89)
+class NormalPlatform(BasePlatform):
+    def __init__(self, x, y):
+        super().__init__(x, y, 'img/green.png')
 
-    mc.postToChat("Сокровище разблокировано!")
+class SpringPlatform(BasePlatform):
+    ...
+
+class BreakablePlatform(BasePlatform):
+    ...
+
+class MovingPlatform(BasePlatform):
+    ...
+
+platforms = pg.sprite.Group()
+
+def spawn_platform():
+    platform = platforms.sprites()[-1]
+    y = platform.rect.y - random.randint(MIN_GAP, MAX_GAP)
+    x = random.randint(0, W - PLATFORM_WIDTH)
+    types = [
+         # MovingPlatform, # BreakablePlatform, # SpringPlatform,
+        NormalPlatform
+    ]
+    Plat = random.choice(types)
+    platform = Plat(x, y)
+    platforms.add(platform)
+
+doodle = Player()
+
+platform = NormalPlatform(W // 2 - PLATFORM_WIDTH // 2, H - 50)
+platforms.add(platform)
+
+def main():
+    while True:
+        #1
+        for e in pg.event.get():
+            if e.type == pg.QUIT:
+                return
+        #2
+        doodle.update()
+        platforms.update()
+        if pg.sprite.spritecollide(doodle, platforms, False):
+            doodle.speed = JUMP
+        if len(platforms) < 25:
+            spawn_platform()
+        if doodle.speed < 0 and doodle.rect.bottom < H / 2:
+            doodle.rect.y -= doodle.speed
+            for platform in platforms:
+                platform.rect.y -= doodle.speed
+        #3
+        display.fill('white')
+        platforms.draw(display)
+        doodle.draw()
+        pg.display.update()
+        pg.time.delay(1000 // 60)
+
+if __name__ == '__main__':
+    main()
